@@ -24,7 +24,7 @@ To use, first enter latitude and longitude, and also the filter which can be:
   WEEKEND_BY_HOUR
   FIFTEEN_DAYS_BY_HOUR
 */
-
+const normalizeDataForecast = () => {};
 export function useGetForecast({
   variables = { cityLat, cityLong, filter: "NOW" },
   /* 👆
