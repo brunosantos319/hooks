@@ -53,44 +53,66 @@ export function useGetForecast({
     variables: variables,
   });
   console.log(data);
-  // const todo = data.forecast.data;
-  // console.log(todo);
+  const todo = data?.forecast.data;
+  console.log(todo);
 
-  // forecast.forEach((index) => {
-  //   switch (index) {
-  //     case "temperature":
-  //       // temperature switch
-  //       const { temperature } = todo;
-  //       ObjectAcepptedVariablesBFF.temperature =
-  //         temperature?.data[0].average.toFixed(0);
-  //       break;
-  //     case "thermalSensation":
-  //       // sensation switch
-  //       const { thermalSensation } = todo;
-  //       ObjectAcepptedVariablesBFF.thermalSensation =
-  //         thermalSensation?.data[0].average.toFixed(0);
-  //       break;
-  //     case "wind":
-  //       // wind switch
-  //       const { wind } = todo;
-  //       ObjectAcepptedVariablesBFF.wind = wind.data[0]?.speed.toFixed(0);
-  //       break;
+  forecast.forEach((index) => {
+    switch (index) {
+      case "temperature":
+        // temperature switch
+        if (todo) {
+          const { temperature } = todo;
+          ObjectAcepptedVariablesBFF.temperature =
+            temperature?.data[0].average.toFixed(0) ?? "--";
+        } else {
+          ObjectAcepptedVariablesBFF.temperature = "--";
+        }
+        break;
+      case "thermalSensation":
+        // sensation switch
+        if (todo) {
+          const { thermalSensation } = todo;
+          ObjectAcepptedVariablesBFF.thermalSensation =
+            thermalSensation?.data[0].average.toFixed(0) ?? "--";
+        } else {
+          ObjectAcepptedVariablesBFF.thermalSensation = "--";
+        }
+        break;
+      case "wind":
+        // wind switch
+        if (todo) {
+          const { wind } = todo;
+          ObjectAcepptedVariablesBFF.wind =
+            wind.data[0]?.speed.toFixed(0) ?? "--";
+        } else {
+          ObjectAcepptedVariablesBFF.wind = "--";
+        }
+        break;
 
-  //     case "humidity":
-  //       // humidity switch
-  //       const { humidity } = todo;
-  //       ObjectAcepptedVariablesBFF.humidity =
-  //         humidity.data[0]?.average.toFixed(0);
-  //       break;
-  //     case "precipitation":
-  //       // precipitation switch
-  //       const { precipitation } = todo;
-  //       ObjectAcepptedVariablesBFF.precipitation =
-  //         precipitation.data[0]?.value.toFixed(0);
-  //       break;
-  //     default:
-  //   }
-  // });
+      case "humidity":
+        // humidity switch
+        if (todo) {
+          const { humidity } = todo;
+          ObjectAcepptedVariablesBFF.humidity =
+            humidity.data[0]?.average.toFixed(0) ?? "--";
+        } else {
+          ObjectAcepptedVariablesBFF.humidity = "--";
+        }
+
+        break;
+      case "precipitation":
+        // precipitation switch
+        if (todo) {
+          const { precipitation } = todo;
+          ObjectAcepptedVariablesBFF.precipitation =
+            precipitation.data[0]?.value.toFixed(0) ?? "--";
+        } else {
+          ObjectAcepptedVariablesBFF.precipitation = "--";
+        }
+        break;
+      default:
+    }
+  });
 
   console.log("objeto completo", ObjectAcepptedVariablesBFF);
   return ObjectAcepptedVariablesBFF;
