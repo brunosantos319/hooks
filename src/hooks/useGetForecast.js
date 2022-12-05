@@ -24,7 +24,7 @@ To use, first enter latitude and longitude, and also the filter which can be:
   WEEKEND_BY_HOUR
   FIFTEEN_DAYS_BY_HOUR
 */
-const normalizeDataForecast = () => {};
+const normalizeDataForecast = (data) => {};
 export function useGetForecast({
   variables = { cityLat, cityLong, filter: "NOW" },
   /* 👆
@@ -48,13 +48,11 @@ export function useGetForecast({
   Object that contains the variables 👆
  */
 
-  console.log(variables);
   const { data } = useQuery(forecastQuery, {
     variables: variables,
   });
-  console.log(data);
+
   const todo = data?.forecast.data;
-  console.log(todo);
 
   forecast.forEach((index) => {
     switch (index) {
@@ -62,8 +60,12 @@ export function useGetForecast({
         // temperature switch
         if (todo) {
           const { temperature } = todo;
-          ObjectAcepptedVariablesBFF.temperature =
-            temperature?.data[0].average.toFixed(0) ?? "--";
+          if (temperature?.data.length > 1) {
+            ObjectAcepptedVariablesBFF.temperature = temperature?.data ?? "--";
+          } else {
+            ObjectAcepptedVariablesBFF.temperature =
+              temperature?.data[0].average.toFixed(0) ?? "--";
+          }
         } else {
           ObjectAcepptedVariablesBFF.temperature = "--";
         }
@@ -72,8 +74,13 @@ export function useGetForecast({
         // sensation switch
         if (todo) {
           const { thermalSensation } = todo;
-          ObjectAcepptedVariablesBFF.thermalSensation =
-            thermalSensation?.data[0].average.toFixed(0) ?? "--";
+          if (thermalSensation?.data.length > 1) {
+            ObjectAcepptedVariablesBFF.thermalSensation =
+              thermalSensation?.data;
+          } else {
+            ObjectAcepptedVariablesBFF.thermalSensation =
+              thermalSensation?.data[0].average.toFixed(0) ?? "--";
+          }
         } else {
           ObjectAcepptedVariablesBFF.thermalSensation = "--";
         }
@@ -82,8 +89,13 @@ export function useGetForecast({
         // wind switch
         if (todo) {
           const { wind } = todo;
-          ObjectAcepptedVariablesBFF.wind =
-            wind.data[0]?.speed.toFixed(0) ?? "--";
+          if (wind?.data.length > 1) {
+            ObjectAcepptedVariablesBFF.wind = wind.data ?? "--";
+            console.log("direto do wind", wind.data);
+          } else {
+            ObjectAcepptedVariablesBFF.wind =
+              wind.data[0]?.speed.toFixed(0) ?? "--";
+          }
         } else {
           ObjectAcepptedVariablesBFF.wind = "--";
         }
@@ -93,8 +105,12 @@ export function useGetForecast({
         // humidity switch
         if (todo) {
           const { humidity } = todo;
-          ObjectAcepptedVariablesBFF.humidity =
-            humidity.data[0]?.average.toFixed(0) ?? "--";
+          if (humidity.data.length > 1) {
+            ObjectAcepptedVariablesBFF.humidity = humidity.data ?? "--";
+          } else {
+            ObjectAcepptedVariablesBFF.humidity =
+              humidity.data[0]?.average.toFixed(0) ?? "--";
+          }
         } else {
           ObjectAcepptedVariablesBFF.humidity = "--";
         }
@@ -104,8 +120,13 @@ export function useGetForecast({
         // precipitation switch
         if (todo) {
           const { precipitation } = todo;
-          ObjectAcepptedVariablesBFF.precipitation =
-            precipitation.data[0]?.value.toFixed(0) ?? "--";
+          if (precipitation.data.length > 1) {
+            ObjectAcepptedVariablesBFF.precipitation =
+              precipitation.data ?? "--";
+          } else {
+            ObjectAcepptedVariablesBFF.precipitation =
+              precipitation.data[0]?.value.toFixed(0) ?? "--";
+          }
         } else {
           ObjectAcepptedVariablesBFF.precipitation = "--";
         }
